@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+:root {
+  --background: #faf5ff;
+  --foreground: #1e1b2e;
+  --primary: #7c3aed;
+  --primary-light: #a78bfa;
+  --primary-dark: #5b21b6;
+  --accent: #f59e0b;
+  --card: #ffffff;
+  --muted: #f3e8ff;
+  --border: #e9d5ff;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-light: var(--primary-light);
+  --color-primary-dark: var(--primary-dark);
+  --color-accent: var(--accent);
+  --color-card: var(--card);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Bottom navigation */
+.bottom-nav {
+  @apply fixed bottom-0 left-0 right-0 bg-white border-t border-purple-100 flex justify-around py-2 z-50;
+  max-width: 100vw;
+}
+
+.bottom-nav a {
+  @apply flex flex-col items-center text-xs text-gray-400 py-1 px-3;
+}
+
+.bottom-nav a.active {
+  @apply text-primary;
+}
+
+.bottom-nav .nav-icon {
+  @apply text-xl mb-0.5;
+}
+
+/* Card styles */
+.card {
+  @apply bg-white rounded-2xl shadow-sm border border-purple-100 p-4;
+}
+
+/* Buttons */
+.btn-primary {
+  @apply bg-primary text-white rounded-xl px-6 py-3 font-medium hover:bg-primary-dark transition-colors active:scale-95;
+}
+
+.btn-secondary {
+  @apply bg-purple-50 text-primary rounded-xl px-6 py-3 font-medium hover:bg-purple-100 transition-colors active:scale-95;
+}
+
+/* Score bars */
+.score-bar {
+  @apply h-2 rounded-full bg-purple-100 overflow-hidden;
+}
+
+.score-fill {
+  @apply h-full rounded-full bg-primary transition-all;
+}
+
+/* Tags */
+.tag {
+  @apply inline-block px-3 py-1 rounded-full text-sm bg-purple-50 text-primary;
+}
