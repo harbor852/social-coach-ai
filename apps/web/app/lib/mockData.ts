@@ -1,15 +1,26 @@
 // Mock data for the MVP
 
-export interface TrainingFeedback {
+export interface SafetyCheck {
+  risk_level: "none" | "low" | "medium" | "high" | "crisis";
+  action: string | null;
+  message: string | null;
+}
+
+export interface AgentTurnResponse {
   reply_text: string;
-  scores: {
-    clarity: number;
-    logic: number;
-    confidence: number;
-    etiquette: number;
-    evidence: number;
-    boundary: number;
-  };
+  intent: string | null;
+  scores: TrainingFeedback;
+  safety: SafetyCheck;
+  next_action: string | null;
+}
+
+export interface TrainingFeedback {
+  clarity: number;
+  logic: number;
+  evidence: number;
+  confidence: number;
+  etiquette: number;
+  boundary: number;
   strengths: string[];
   improvements: string[];
   rewritten_expression: string;
@@ -77,16 +88,12 @@ export const mockRoles = [
 ];
 
 export const mockFeedback: TrainingFeedback = {
-  reply_text:
-    "你已经表达了不同意见，这是很好的开始。但这句话有三个问题：观点不够明确、理由太模糊、缺少替代建议。",
-  scores: {
-    clarity: 5,
-    logic: 4,
-    confidence: 5,
-    etiquette: 8,
-    evidence: 3,
-    boundary: 7,
-  },
+  clarity: 5,
+  logic: 4,
+  evidence: 3,
+  confidence: 5,
+  etiquette: 8,
+  boundary: 7,
   strengths: ["表达了不同意见", "语气温和有礼貌"],
   improvements: ["观点不够明确", "缺少具体理由", "没给出替代方案"],
   rewritten_expression:
