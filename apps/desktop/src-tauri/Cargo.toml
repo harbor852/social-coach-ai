@@ -1,0 +1,15 @@
+[package]
+name = "speakup-desktop"
+version = "0.3.0"
+description = "SpeakUp AI - Social Coach Desktop App"
+authors = ["you"]
+edition = "2021"
+rust-version = "1.75"
+
+[dependencies]
+tauri = { version = "2", features = [] }
+
+[profile.release]
+opt-level = 3
+lto = true
+strip = true

@@ -6,17 +6,23 @@ import { usePathname } from "next/navigation";
 export default function BottomNav() {
   const pathname = usePathname();
 
+  // Hide on onboarding flow for an immersive experience.
+  if (pathname?.startsWith("/onboarding")) return null;
+
   const navItems = [
     { href: "/", label: "首页", icon: "🏠" },
-    { href: "/train/expression", label: "表达训练", icon: "💬" },
-    { href: "/train/scene", label: "场景训练", icon: "🎭" },
+    { href: "/train/expression", label: "表达", icon: "💬" },
+    { href: "/train/voice", label: "语音", icon: "🎙️" },
+    { href: "/train/etiquette", label: "礼仪", icon: "📚" },
     { href: "/growth", label: "成长", icon: "📈" },
+    { href: "/settings", label: "设置", icon: "⚙️" },
   ];
 
   return (
     <nav className="bottom-nav">
       {navItems.map((item) => {
-        const isActive = pathname === item.href;
+        const isActive =
+          item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
         return (
           <Link
             key={item.href}

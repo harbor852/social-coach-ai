@@ -11,6 +11,15 @@ class AudioFeatures(BaseModel):
     filler_words: Optional[list[str]] = None
 
 
+class LLMConfigInput(BaseModel):
+    """User-provided LLM configuration (overrides server defaults)."""
+
+    provider: str = Field(..., description="Provider name: deepseek, openai, anthropic, kimi")
+    api_key: str = Field(..., description="API key for the provider")
+    model: Optional[str] = Field(default=None, description="Model name, e.g. deepseek-chat")
+    base_url: Optional[str] = Field(default=None, description="Custom base URL if needed")
+
+
 class AgentTurnRequest(BaseModel):
     user_id: str = Field(..., description="User identifier")
     session_id: str = Field(..., description="Training session identifier")
@@ -24,6 +33,14 @@ class AgentTurnRequest(BaseModel):
     ] = Field(default="expression_training")
     text: str = Field(..., min_length=1, max_length=5000, description="User input text")
     audio_features: Optional[AudioFeatures] = None
+    user_stage: Optional[Literal["teen", "college", "new_worker", "other"]] = Field(
+        default=None,
+        description="User life stage for personalized coaching",
+    )
+    llm_config: Optional[LLMConfigInput] = Field(
+        default=None,
+        description="User-configured LLM settings (optional)",
+    )
 
 
 class Scores(BaseModel):

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import BottomNav from "./components/BottomNav";
+import { VoiceChatProvider } from "./components/VoiceChatContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,6 +17,8 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "SpeakUp AI - 社交成长教练",
   description: "AI 驱动的社交成长教练，帮助低社交度人群提升沟通自信与表达能力",
+  manifest: "/manifest.json",
+  themeColor: "#7c3aed",
 };
 
 export default function RootLayout({
@@ -28,11 +31,24 @@ export default function RootLayout({
       lang="zh-CN"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-gradient-to-b from-purple-50 to-white">
-        <main className="flex-1 max-w-lg mx-auto w-full px-4 pb-20 pt-4">
-          {children}
-        </main>
-        <BottomNav />
+      <body className="min-h-full flex flex-col">
+        <VoiceChatProvider>
+          <main className="flex-1 max-w-lg mx-auto w-full px-4 pb-28 pt-4">
+            {children}
+          </main>
+          <BottomNav />
+        </VoiceChatProvider>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                  navigator.serviceWorker.register('/sw.js').catch(() => {});
+                });
+              }
+            `,
+          }}
+        />
       </body>
     </html>
   );
