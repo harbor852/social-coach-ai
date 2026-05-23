@@ -38,6 +38,9 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
+      - name: Install SDK platform 36
+        run: sdkmanager "platforms;android-36" "build-tools;36.0.0"
+
       - name: Copy web assets to Android
         run: |
           cd apps/web
