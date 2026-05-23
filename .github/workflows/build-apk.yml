@@ -38,10 +38,10 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Sync Capacitor
+      - name: Copy web assets to Android
         run: |
           cd apps/web
-          npx cap sync android
+          npx cap copy android
 
       - name: Build debug APK
         run: |
