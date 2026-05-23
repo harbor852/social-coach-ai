@@ -41,7 +41,8 @@ jobs:
       - name: Copy web assets to Android
         run: |
           cd apps/web
-          npx cap copy android
+          rm -rf android/app/src/main/assets/public/*
+          cp -r dist/* android/app/src/main/assets/public/
 
       - name: Build debug APK
         run: |
